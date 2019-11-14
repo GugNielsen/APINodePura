@@ -6,6 +6,16 @@ const router = express.Router();
 
 const bcrypt = require('bcryptjs');
 
+const jwt = require('jsonwebtoken');
+
+const authConfig = require('../config/auth')
+
+function genereteToken(params = {}){
+    return jwt.sign(params,authConfig.secret,{
+        expiresIn:86400
+    })
+}
+
 router.post('/registre',async(req,res)=>{
    const {email} = req.body.email
     try {
@@ -17,7 +27,8 @@ router.post('/registre',async(req,res)=>{
         // }
             const user = await User.create(req.body);
             user.password = undefined;
-            return res.send({user});
+            return res.send({user,
+            token:genereteToken({id:user._id})});
        
        
     } catch (error) {
@@ -37,7 +48,8 @@ router.post('/login',async (req,res)=>{
               if(batem){
                   //console.log(user);
                 user.password = undefined;
-                return res.send({user});
+                return res.send({user,
+                token:genereteToken({id:user._id})});
               }
               else{
                 return res.status(400).send('senha invalida');

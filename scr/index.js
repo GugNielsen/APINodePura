@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 
 
-require('../controllers/authControllers')(app);
+require('./controllers/authControllers')(app);
 
 app.listen(3000);
 console.log('servidor na porta 3000')

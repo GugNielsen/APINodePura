@@ -1,4 +1,4 @@
-const mongoose = require('../scr/databese/index');
+const mongoose = require('../databese/index');
 const Schema = mongoose.Schema;
 
 const bcrypt = require('bcryptjs');
