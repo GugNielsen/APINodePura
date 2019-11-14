@@ -1,7 +1,9 @@
-const mongose = require('mongose');
-const Schema = mongose.Schema;
+const mongoose = require('../scr/databese/index');
+const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const bcrypt = require('bcryptjs');
+
+const UserSchema = mongoose.Schema({
     nome:{
         type:String,
         require:true
@@ -19,11 +21,18 @@ const UserSchema = new Schema({
     },
     creatdAt:{
         type:Date,
-        default:Date.now,
+        default:Date.now
     }
 
 })
 
-const User = Schema('User', UserSchema);
+UserSchema.pre('save',async function(nest){
+    const hash= await bcrypt.hash(this.password,10)
+    this.password = hash;
+    nest();
+
+})
+
+const User = mongoose.model('User',UserSchema);
 
 module.exports = User;
