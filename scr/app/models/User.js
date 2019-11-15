@@ -19,6 +19,14 @@ const UserSchema = mongoose.Schema({
         require:true,
         select:false
     },
+    passwordRestToken:{
+        type:String,
+        select:false
+    },
+    passwordRestExpires:{
+        type:Date,
+        select:false
+    },
     creatdAt:{
         type:Date,
         default:Date.now
