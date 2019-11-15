@@ -7,8 +7,8 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 
 // rotas 
-require('./app/controllers/authControllers')(app);
-require('./app/controllers/projectsControllers')(app);
+require('./app/controllers/index')(app);
+
 
 app.listen(3000);
 console.log('servidor na porta 3000')
